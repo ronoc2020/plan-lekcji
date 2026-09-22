@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10121e">
+  <meta name="description" content="Interaktywny plan lekcji z zadaniami, poziomami i mini-grami">
+  <title>Plan lekcji — Quest</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="background-orb orb-one" aria-hidden="true"></div>
+  <div class="background-orb orb-two" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Plan lekcji — strona główna">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span><strong class="brand-title">Plan lekcji</strong><small class="brand-subtitle">Twoja codzienna misja</small></span>
+    </a>
+    <button id="resetButton" class="reset-button" type="button">↻ Resetuj postęp</button>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div><p class="eyebrow">STREFA NAUKI</p><h1>Ucz się. Zdobywaj punkty.<br><span>Odblokuj swój potencjał.</span></h1><p class="lead">Wykonuj różnorodne zadania, zdobywaj XP i rozwijaj swoje umiejętności. Każde zadanie możesz ukończyć tylko raz.</p></div>
+      <div class="rocket" aria-hidden="true">🚀</div>
+    </section>
+    <section class="stats" aria-label="Twój postęp">
+      <div class="stat"><span class="stat-label">UKOŃCZONE ZADANIA</span><strong id="completedValue" class="stat-value">0 / 20</strong><div class="progress" role="progressbar" aria-label="Postęp zadań" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar" class="progress-bar"></span></div></div>
+      <div class="stat"><span class="stat-label">ZDOBYTE PUNKTY</span><strong id="pointsValue" class="stat-value">0</strong><span class="stat-unit">XP</span></div>
+      <div class="stat"><span class="stat-label">AKTUALNY POZIOM</span><strong id="levelValue" class="stat-value">1</strong><span id="rankValue" class="stat-unit">Odkrywca</span></div>
+    </section>
+    <section class="section-heading"><div><p class="eyebrow">TWOJE WYZWANIA</p><h2>Zadania na dziś</h2><p id="unlockHint" class="section-note"></p></div><nav class="filters" aria-label="Filtrowanie zadań"><button class="filter-button active" data-filter="all" type="button">Wszystkie</button><button class="filter-button" data-filter="open" type="button">Do zrobienia</button><button class="filter-button" data-filter="completed" type="button">Ukończone</button></nav></section>
+    <section id="tasks" class="tasks" aria-live="polite"></section>
+    <section class="games-heading"><div><p class="eyebrow">STREFA ZABAWY</p><h2>Mini-gry</h2></div><p class="section-note">Każda gra daje bonus tylko przy pierwszym ukończeniu.</p></section>
+    <section class="games-grid">
+      <article class="game-card"><div class="game-icon" aria-hidden="true">🧠</div><div><p class="eyebrow">10 PYTAŃ · DO 50 XP</p><h2>Szybki quiz</h2><p class="game-description">Losowe pytania z matematyki, języków, historii, geografii i przyrody.</p><span id="quizStatus" class="game-status"></span></div><button id="startQuizButton" class="play-button" type="button">Zagraj →</button></article>
+      <article class="game-card secondary"><div class="game-icon" aria-hidden="true">⚡</div><div><p class="eyebrow">PRAWDA / FAŁSZ · 25 XP</p><h2>Fakt czy fikcja?</h2><p class="game-description">Oceń pięć ciekawostek i sprawdź, czy potrafisz rozpoznać prawdę.</p><span id="truthStatus" class="game-status"></span></div><button id="startTruthButton" class="play-button" type="button">Zagraj →</button></article>
+    </section>
+  </main>
+  <div id="quizModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="quiz-box"><button id="closeQuizButton" class="close-button" type="button" aria-label="Zamknij okno">×</button><p id="modalKicker" class="eyebrow">MINI GRA · <span id="quizCounter">1 / 10</span></p><h2 id="modalTitle" class="quiz-question"></h2><div id="quizAnswers" class="answers"></div><p id="quizMessage" class="quiz-message" aria-live="polite"></p></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
