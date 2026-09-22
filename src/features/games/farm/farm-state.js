@@ -1,4 +1,4 @@
-import { read, write } from '../../core/storage.js';
+import { read, write } from '../../../core/storage.js';
 
 const KEY = 'farm-state';
 const DEFAULT = { coins: 0, eggs: [], level: 1, capacity: 10, upgrades: [], feed: 0 };

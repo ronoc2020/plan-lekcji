@@ -1,5 +1,5 @@
-import { PETS } from '../../data/pets.js';
-import { read, write } from '../../core/storage.js';
+import { PETS } from '../../../data/pets.js';
+import { read, write } from '../../../core/storage.js';
 
 const KEY = 'pets-state';
 

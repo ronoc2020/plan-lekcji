@@ -1,6 +1,6 @@
-import { AudioManager } from '../../core/audio-manager.js';
-import { getDialogue } from '../../data/dialogues.js';
-import { loadPets, savePets, selectPet, interactWithPet } from './pets-state.js';
+import { AudioManager } from '../../../core/audio-manager.js';
+import { getDialogue } from '../../../data/dialogues.js';
+import { loadPets, selectPet, interactWithPet } from './pets-state.js';
 import { spawnParticles, spawnFloatingText } from '../../../ui/effects/particles.js';
 
 const audio = new AudioManager();
