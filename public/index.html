@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Plan lekcji — Quest</title><link rel="stylesheet" href="/styles.css"></head>
+<body><div class="orb orb-one"></div><div class="orb orb-two"></div>
+<header class="topbar"><div class="brand"><span class="brand-mark">✦</span><div><strong>Plan lekcji</strong><small>Twoja codzienna misja</small></div></div><button id="reset" class="ghost">↻ Resetuj postęp</button></header>
+<main class="shell"><section class="hero"><div><p class="eyebrow">STREFA NAUKI</p><h1>Ucz się. Zdobywaj punkty.<br><span>Odblokuj swój potencjał.</span></h1><p class="lead">Wykonuj różnorodne zadania — każde ukończysz tylko raz, aby postęp był naprawdę Twój.</p></div><div class="hero-icon">🚀</div></section>
+<section class="stats"><div class="stat"><span>UKOŃCZONE</span><b id="completed">0 / 0</b><div class="progress"><i id="bar"></i></div></div><div class="stat"><span>ZDOBYTE PUNKTY</span><b id="points">0</b><em>XP</em></div><div class="stat"><span>AKTUALNY POZIOM</span><b id="level">1</b><em id="levelName">Odkrywca</em></div></section>
+<div class="section-head"><div><p class="eyebrow">TWOJE WYZWANIA</p><h2>Zadania na dziś</h2></div><div class="filters"><button class="filter active" data-filter="all">Wszystkie</button><button class="filter" data-filter="open">Do zrobienia</button><button class="filter" data-filter="done">Ukończone</button></div></div>
+<section id="tasks" class="tasks"></section><section class="game-card"><div class="game-art">🧠<span>✦</span></div><div><p class="eyebrow">MINI GRA</p><h2>Szybki quiz</h2><p>Sprawdź swoją wiedzę w 60 sekund. Tryb gry wkrótce dostępny!</p></div><button class="primary" disabled>Wkrótce <span>→</span></button></section>
+</main><div id="toast" class="toast"></div><script src="/app.js"></script></body></html>
