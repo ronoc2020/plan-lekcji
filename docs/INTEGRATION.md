@@ -1,11 +1,13 @@
-# Integracja
+# Aktualna integracja
 
-Na branchu dodano integrację stanu pupili z istniejącym DOM-em. Moduł rozpoznaje zarówno selektory `data-game-panel="pets"`, `data-games-panel="pets"`, jak i istniejące karty oznaczone `data-pet-id` oraz akcje `data-pet-action`.
-
-Aby aktywować runtime w `index.html`, aplikacja musi załadować po istniejącym kodzie:
+Moduły są przeznaczone do uruchomienia przez `index.html` po dodaniu na końcu body:
 
 ```html
 <script type="module" src="./src/app.js"></script>
 ```
 
-Nie dodano automatycznej zmiany do monolitycznego `index.html`, ponieważ jego inline JavaScript jest obecnie źródłem istniejącej wizji i planu; bezpieczne podłączenie wymaga potwierdzenia selektorów panelu w przeglądarce. Po dodaniu skryptu plan lekcji pozostaje nienaruszony, a moduł tylko rozszerza panel pupili.
+`src/app.js` importuje teraz storage/state/store, audio, zegar gry, dane pupili i gospodarstwa oraz style efektów. Istniejąca aplikacja pozostaje źródłem planu lekcji i dotychczasowego UI.
+
+## Ważna weryfikacja
+
+Moduły ES nie mogą być uruchomione przez przeglądarkę, dopóki `index.html` nie załaduje `src/app.js`. Nie należy deklarować pełnej integracji bez sprawdzenia tego skryptu w kodzie strony i w konsoli przeglądarki.
