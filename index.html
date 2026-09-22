@@ -3,40 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10121e">
-  <meta name="description" content="Interaktywny plan lekcji z zadaniami, poziomami i mini-grami">
-  <title>Plan lekcji — Quest</title>
+  <meta name="theme-color" content="#0d1224">
+  <meta name="description" content="Przyjazny plan lekcji z krótkimi zadaniami, profilem ucznia i edukacyjnymi mini-grami">
+  <title>Plan lekcji — Mądre misje</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="background-orb orb-one" aria-hidden="true"></div>
-  <div class="background-orb orb-two" aria-hidden="true"></div>
-  <header class="topbar">
-    <a class="brand" href="./" aria-label="Plan lekcji — strona główna">
-      <span class="brand-mark" aria-hidden="true">✦</span>
-      <span><strong class="brand-title">Plan lekcji</strong><small class="brand-subtitle">Twoja codzienna misja</small></span>
-    </a>
-    <button id="resetButton" class="reset-button" type="button">↻ Resetuj postęp</button>
-  </header>
+  <div class="background-orb orb-one" aria-hidden="true"></div><div class="background-orb orb-two" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./" aria-label="Plan lekcji — strona główna"><span class="brand-mark" aria-hidden="true">✦</span><span><strong class="brand-title">Plan lekcji</strong><small class="brand-subtitle">Mądre misje każdego dnia</small></span></a><div class="top-actions"><span id="headerProfile" class="header-profile"></span><button id="resetButton" class="reset-button" type="button">↻ Resetuj</button></div></header>
   <main class="container">
-    <section class="hero">
-      <div><p class="eyebrow">STREFA NAUKI</p><h1>Ucz się. Zdobywaj punkty.<br><span>Odblokuj swój potencjał.</span></h1><p class="lead">Wykonuj różnorodne zadania, zdobywaj XP i rozwijaj swoje umiejętności. Każde zadanie możesz ukończyć tylko raz.</p></div>
-      <div class="rocket" aria-hidden="true">🚀</div>
-    </section>
-    <section class="stats" aria-label="Twój postęp">
-      <div class="stat"><span class="stat-label">UKOŃCZONE ZADANIA</span><strong id="completedValue" class="stat-value">0 / 20</strong><div class="progress" role="progressbar" aria-label="Postęp zadań" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar" class="progress-bar"></span></div></div>
-      <div class="stat"><span class="stat-label">ZDOBYTE PUNKTY</span><strong id="pointsValue" class="stat-value">0</strong><span class="stat-unit">XP</span></div>
-      <div class="stat"><span class="stat-label">AKTUALNY POZIOM</span><strong id="levelValue" class="stat-value">1</strong><span id="rankValue" class="stat-unit">Odkrywca</span></div>
-    </section>
-    <section class="section-heading"><div><p class="eyebrow">TWOJE WYZWANIA</p><h2>Zadania na dziś</h2><p id="unlockHint" class="section-note"></p></div><nav class="filters" aria-label="Filtrowanie zadań"><button class="filter-button active" data-filter="all" type="button">Wszystkie</button><button class="filter-button" data-filter="open" type="button">Do zrobienia</button><button class="filter-button" data-filter="completed" type="button">Ukończone</button></nav></section>
-    <section id="tasks" class="tasks" aria-live="polite"></section>
-    <section class="games-heading"><div><p class="eyebrow">STREFA ZABAWY</p><h2>Mini-gry</h2></div><p class="section-note">Każda gra daje bonus tylko przy pierwszym ukończeniu.</p></section>
-    <section class="games-grid">
-      <article class="game-card"><div class="game-icon" aria-hidden="true">🧠</div><div><p class="eyebrow">10 PYTAŃ · DO 50 XP</p><h2>Szybki quiz</h2><p class="game-description">Losowe pytania z matematyki, języków, historii, geografii i przyrody.</p><span id="quizStatus" class="game-status"></span></div><button id="startQuizButton" class="play-button" type="button">Zagraj →</button></article>
-      <article class="game-card secondary"><div class="game-icon" aria-hidden="true">⚡</div><div><p class="eyebrow">PRAWDA / FAŁSZ · 25 XP</p><h2>Fakt czy fikcja?</h2><p class="game-description">Oceń pięć ciekawostek i sprawdź, czy potrafisz rozpoznać prawdę.</p><span id="truthStatus" class="game-status"></span></div><button id="startTruthButton" class="play-button" type="button">Zagraj →</button></article>
-    </section>
+    <section class="hero"><div><p class="eyebrow">STREFA NAUKI</p><h1>Małe kroki.<br><span>Wielkie odkrycia.</span></h1><p class="lead">Wybierz jedną krótką misję, zagraj chwilę i zobacz swój postęp. Bez presji — liczy się regularność.</p><div class="hero-actions"><a class="hero-button" href="#tasks">Wybierz misję <span aria-hidden="true">↓</span></a><span class="micro-note">⏱ Większość zadań zajmuje 5–10 min</span></div></div><div class="hero-art" aria-hidden="true"><div class="hero-spark spark-one">✦</div><div class="hero-orbit"></div><span class="hero-emoji">🚀</span></div></section>
+    <section class="profile-card" aria-labelledby="profileTitle"><div class="profile-copy"><span class="section-icon" aria-hidden="true">👋</span><div><p class="eyebrow">TWÓJ PROFIL</p><h2 id="profileTitle">Jak chcesz, żebyśmy się do Ciebie zwracali?</h2><p class="section-note">To tylko wygląd profilu. Możesz wybrać dowolną opcję albo pominąć.</p></div></div><div class="profile-options" role="group" aria-label="Wybór wyglądu profilu"><button class="profile-option" data-profile="boy" type="button"><span class="avatar avatar-boy" aria-hidden="true">🧑‍🚀</span><span>Chłopiec</span></button><button class="profile-option" data-profile="girl" type="button"><span class="avatar avatar-girl" aria-hidden="true">👩‍🚀</span><span>Dziewczynka</span></button><button class="profile-option" data-profile="none" type="button"><span class="avatar avatar-none" aria-hidden="true">⭐</span><span>Bez wyboru</span></button></div></section>
+    <section class="stats" aria-label="Twój postęp"><div class="stat stat-progress"><div class="stat-heading"><span class="stat-label">UKOŃCZONE MISJE</span><span id="todayStreak" class="stat-badge">Dziś: 0</span></div><strong id="completedValue" class="stat-value">0 / 24</strong><div class="progress" role="progressbar" aria-label="Postęp misji" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar" class="progress-bar"></span></div><small id="progressCaption" class="progress-caption">Pierwszy krok czeka na Ciebie</small></div><div class="stat"><span class="stat-label">ZDOBYTE PUNKTY</span><strong id="pointsValue" class="stat-value">0</strong><span class="stat-unit">XP</span><small class="stat-helper">Punkty za naukę i gry</small></div><div class="stat level-stat"><span class="stat-label">AKTUALNY POZIOM</span><strong id="levelValue" class="stat-value">1</strong><span id="rankValue" class="stat-unit">Odkrywca</span><small id="nextLevel" class="stat-helper">Następny poziom za 50 XP</small></div></section>
+    <section class="section-heading" id="tasks"><div><p class="eyebrow">TWOJE KRÓTKIE MISJE</p><h2>Zadania bez przeciążenia</h2><p id="unlockHint" class="section-note"></p></div><nav class="filters" aria-label="Filtrowanie misji"><button class="filter-button active" data-filter="all" type="button">Wszystkie</button><button class="filter-button" data-filter="open" type="button">Do zrobienia</button><button class="filter-button" data-filter="completed" type="button">Ukończone</button></nav></section>
+    <section class="subject-strip" aria-label="Przedmioty"><span>Bez religii — każdy wybiera swój plan</span><div id="subjectChips" class="subject-chips"></div></section>
+    <section id="tasksGrid" class="tasks" aria-live="polite"></section>
+    <section class="games-heading"><div><p class="eyebrow">LABORATORIUM ZABAWY</p><h2>Gry, które coś dają</h2><p class="section-note">Krótka rozgrzewka dla mózgu. Po każdej odpowiedzi dowiesz się dlaczego.</p></div><span class="games-limit">Bonusy jednorazowe</span></section>
+    <section class="games-grid"><article class="game-card quiz-card"><div class="game-icon" aria-hidden="true">🧠</div><div class="game-copy"><span class="game-label">WIEDZA · 10 PYTAŃ</span><h2>Misja: Quiz</h2><p class="game-description">Ćwicz kojarzenie faktów. Pytania mają wyjaśnienia, a wynik zależy od Twojej nauki.</p><div class="game-details"><span>⏱ 3–5 min</span><span>★ do 50 XP</span></div><span id="quizStatus" class="game-status"></span></div><button id="startQuizButton" class="play-button" type="button">Rozpocznij</button></article><article class="game-card memory-game-card"><div class="game-icon" aria-hidden="true">🧩</div><div class="game-copy"><span class="game-label">PAMIĘĆ · 6 PAR</span><h2>Laboratorium par</h2><p class="game-description">Odkrywaj pary pojęcie–znaczenie. Trenuj pamięć roboczą bez pośpiechu.</p><div class="game-details"><span>⏱ 2–4 min</span><span>★ do 30 XP</span></div><span id="memoryStatus" class="game-status"></span></div><button id="startMemoryButton" class="play-button" type="button">Rozpocznij</button></article><article class="game-card truth-card"><div class="game-icon" aria-hidden="true">💡</div><div class="game-copy"><span class="game-label">MYŚLENIE · 5 ZDAŃ</span><h2>Fakt czy fikcja?</h2><p class="game-description">Rozpoznawaj prawdziwe informacje i ucz się, jak sprawdzać odpowiedzi.</p><div class="game-details"><span>⏱ 2 min</span><span>★ do 25 XP</span></div><span id="truthStatus" class="game-status"></span></div><button id="startTruthButton" class="play-button" type="button">Rozpocznij</button></article></section>
   </main>
-  <div id="quizModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="quiz-box"><button id="closeQuizButton" class="close-button" type="button" aria-label="Zamknij okno">×</button><p id="modalKicker" class="eyebrow">MINI GRA · <span id="quizCounter">1 / 10</span></p><h2 id="modalTitle" class="quiz-question"></h2><div id="quizAnswers" class="answers"></div><p id="quizMessage" class="quiz-message" aria-live="polite"></p></div></div>
+  <div id="gameModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="game-box"><button id="closeGameButton" class="close-button" type="button" aria-label="Zamknij grę">×</button><div class="game-topline"><p id="modalKicker" class="eyebrow">MINI GRA</p><span id="gameScore" class="live-score">0 pkt</span></div><div id="gameProgress" class="game-progress"><span></span></div><h2 id="modalTitle" class="game-question"></h2><p id="gameInstruction" class="game-instruction"></p><div id="gameStage"></div><p id="gameMessage" class="game-message" aria-live="polite"></p></div></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="./app.js"></script>
 </body>
