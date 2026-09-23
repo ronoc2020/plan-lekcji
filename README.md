@@ -15,7 +15,7 @@ Ekran startowy pokazuje tygodniowy plan z godzinami, nauczycielami, salami, nast
 
 ### Biblioteka misji
 
-Zakładka **Misje** zawiera 34 zestawy zadań. Każdy zestaw składa się z trzech konkretnych ćwiczeń oraz pola na własną odpowiedź i podpowiedzi. Bibliotekę można przeszukiwać i filtrować po przedmiocie, poziomie oraz statusie wykonania. Dostępne są między innymi matematyka, język polski, angielski, przyroda, geografia, historia, informatyka, plastyka, muzyka, technika i edukacja zdrowotna.
+Zakładka **Misje** zawiera 42 zestawy zadań. Każdy zestaw składa się z trzech konkretnych ćwiczeń oraz pola na własną odpowiedź i podpowiedzi. Bibliotekę można przeszukiwać i filtrować po przedmiocie, poziomie oraz statusie wykonania. Dostępne są między innymi matematyka, język polski, angielski, przyroda, geografia, historia, informatyka, plastyka, muzyka, technika, edukacja zdrowotna i edukacja społeczna. Zestawy obejmują poziomy **Łatwy**, **Średni** i **Trudny**.
 
 ### Gry edukacyjne
 
@@ -24,6 +24,8 @@ Zakładka **Gry** zawiera dwie główne gry oraz krótsze minigry:
 - **Zwierzakowa Farma** — 12 pupili zależnych od motywu ucznia, statystyki energii, głodu, szczęścia i zdrowia, karmienie, zabawa, odpoczynek, prezenty, zdjęcia, relacje, kolekcja, wyprawy i sklep;
 - **Gospodarstwo** — 8 typów zwierząt, produkty, koszyk, sprzedaż, odblokowania, rozbudowa budynku i cykl dnia zależny od godziny urządzenia;
 - **Matematyczny Tropiciel** — pięć pytań matematycznych, XP oraz odblokowywanie kolejnych towarzyszy;
+- **Leśny refleks** — zręcznościowe rundy wyszukiwania właściwego symbolu wśród animowanych kart;
+- **Sortownia wiedzy** — szybkie rundy logiczne z pytaniami z przyrody, języka i codziennych zasad;
 - **Misja: Quiz** — losowane pytania i wyjaśnienia;
 - **Laboratorium par** — gra Memory z ośmioma parami;
 - **Fakt czy fikcja?** — ćwiczenie krytycznego myślenia;

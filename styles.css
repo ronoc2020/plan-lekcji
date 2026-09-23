@@ -43,3 +43,10 @@ body[data-season="autumn"]:before{background-image:radial-gradient(ellipse at ce
 @keyframes season-shift{0%{opacity:.5;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 body[data-animations="off"]:before,body[data-animations="off"]:after,body[data-animations="off"] .ambient-orb{animation-play-state:paused}.app-shell{position:relative}
+
+/* Nowa minigra zręcznościowa */
+.reflex-board{display:grid;grid-template-columns:repeat(3,minmax(70px,1fr));gap:12px;max-width:440px;margin:auto;padding:12px}.reflex-target{min-height:82px;border:1px solid color-mix(in srgb,var(--season) 24%,white);border-radius:20px;color:var(--ink);background:linear-gradient(145deg,rgba(255,255,255,.95),color-mix(in srgb,var(--accent-soft) 68%,white));font-size:34px;cursor:pointer;box-shadow:0 8px 18px rgba(35,60,43,.08);animation:reflex-shake 2.8s ease-in-out infinite;animation-delay:var(--target-delay,0ms);transition:.18s}.reflex-target:hover{transform:translateY(-5px) rotate(-3deg);border-color:var(--season)}.reflex-target.hit{background:#dff5e6;box-shadow:0 0 0 5px rgba(66,167,107,.2);animation:reflex-hit .5s ease both}.reflex-target.miss{background:#ffe7ed;animation:reflex-miss .4s ease both}
+@keyframes reflex-shake{0%,85%,100%{transform:translate(0,0) rotate(0)}88%{transform:translate(2px,-2px) rotate(2deg)}92%{transform:translate(-2px,1px) rotate(-2deg)}}
+@keyframes reflex-hit{50%{transform:scale(1.18) rotate(8deg)}100%{transform:scale(1)}}
+@keyframes reflex-miss{25%,75%{transform:translateX(-7px)}50%{transform:translateX(7px)}}
+@media (max-width:520px){.reflex-board{gap:8px}.reflex-target{min-height:72px;font-size:29px}}
