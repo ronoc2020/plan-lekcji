@@ -41,7 +41,7 @@ Motyw sezonowy może działać automatycznie albo być wybrany ręcznie:
 - Letnia Wyspa,
 - Jesienny Szlak Wiedzy.
 
-Zmiana sezonu aktualizuje gradienty, kolory, komunikaty, ilustracje emoji i łagodne animacje. Animacje można wyłączyć w ustawieniach; aplikacja respektuje również `prefers-reduced-motion`.
+Zmiana sezonu aktualizuje gradienty, kolory, komunikaty, ilustracje emoji i dedykowane efekty: jesienne liście, wiosenne płatki, letnie rozbłyski oraz zimowe płatki śniegu. Gradienty są animowane w CSS i działają na GitHub Pages bez dodatkowych zasobów. Interakcje, odpowiedzi i zmiany sezonu mają krótkie dźwięki generowane lokalnie przez Web Audio API — bez plików audio i bez zewnętrznych usług. Animacje można wyłączyć w ustawieniach; aplikacja respektuje również `prefers-reduced-motion`.
 
 ### Notatnik i opinie
 
@@ -71,7 +71,7 @@ Nie ma katalogów `src/`, `Old/` ani `docs/`, ponieważ nie są używane przez b
 
 ## Dane lokalne i kompatybilność
 
-Aplikacja nie korzysta z backendu. Plan, wykonane lekcje, misje, profil, ustawienia, notatnik, XP oraz postępy gier są zapisywane w `localStorage`. Klucze są prefiksowane `planLekcji.`. Istniejące klucze nie są zmieniane bez migracji, a zapis progresu jest wersjonowany.
+Aplikacja nie korzysta z backendu. Plan, wykonane lekcje, misje, profil, ustawienia, notatnik, XP oraz postępy gier są zapisywane w `localStorage`. Każdy uczeń korzystający z własnego urządzenia albo własnego profilu/przeglądarki ma osobny magazyn danych, więc postęp i ustawienia nie mieszają się z innymi uczniami. `localStorage` nie jest jednak kontem i nie synchronizuje danych między urządzeniami. Klucze są prefiksowane `planLekcji.`. Istniejące klucze nie są zmieniane bez migracji, a zapis progresu jest wersjonowany.
 
 Reset całego postępu wymaga potwierdzenia i obejmuje również zapis Zwierzakowej Farmy oraz Gospodarstwa. Edycja planu może zostać wycofana osobno.
 
