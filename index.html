@@ -72,7 +72,8 @@
       <section id="view-progress" class="view" aria-labelledby="progressTitle">
         <div class="view-heading"><div><span class="eyebrow">TWÓJ ROZWÓJ</span><h1 id="progressTitle">Postępy i odznaki</h1><p class="muted">Małe kroki są widoczne. Liczy się wytrwałość, nie wyścig.</p></div></div>
         <section class="progress-hero"><div><span class="eyebrow">AKTUALNY POZIOM</span><strong id="progressRank">Odkrywca</strong><p id="progressLevel">Poziom 1 · następny poziom za 50 XP</p><div class="level-bar"><span id="levelProgressBar"></span></div></div><div class="big-xp"><b id="progressXp">0</b><span>XP</span></div></section>
-        <div class="progress-cards"><div><span>Ukończone lekcje</span><b id="progressLessons">0</b></div><div><span>Ukończone zestawy</span><b id="progressTasks">0</b></div><div><span>Sesje gier</span><b id="progressGames">0</b></div><div><span>Towarzysze</span><b id="progressAnimals">0</b></div></div>
+        <div class="progress-cards"><div><span>Ukończone lekcje</span><b id="progressLessons">0</b></div><div><span>Ukończone zestawy</span><b id="progressTasks">0</b></div><div><span>Sesje gier</span><b id="progressGames">0</b></div><div><span>Najlepsza seria</span><b id="progressStreak">0</b></div><div><span>Towarzysze</span><b id="progressAnimals">0</b></div></div>
+        <section class="daily-panel" aria-labelledby="dailyTitle"><div class="collection-heading"><div><span class="eyebrow">MAŁE KROKI · DZISIAJ</span><h2 id="dailyTitle">Dzienne cele</h2></div><span id="dailyGoalCount" class="count-badge">0 / 4</span></div><p class="muted">Krótka lista bez presji. Za komplet czeka bonus +15 XP.</p><div id="dailyGoals" class="daily-goals"></div></section>
         <section class="badges-panel" aria-labelledby="badgesTitle"><div class="collection-heading"><div><span class="eyebrow">KOLEKCJA OSIĄGNIĘĆ</span><h2 id="badgesTitle">Odznaki</h2></div><span id="badgeCount" class="count-badge">0 / 8</span></div><div id="badgesGrid" class="badges-grid"></div></section>
       </section>
 
@@ -100,6 +101,6 @@
   <div id="seasonModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="seasonModalTitle"><div class="game-box compact-box"><button id="closeSeasonButton" class="close-button" type="button" aria-label="Zamknij wybór motywu">×</button><p class="eyebrow">MOTYW APLIKACJI</p><h2 id="seasonModalTitle" class="game-question">Wybierz swój sezon</h2><p class="game-instruction">Tryb automatyczny sprawdza bieżący miesiąc na tym urządzeniu.</p><div id="seasonOptions" class="season-options"></div></div></div>
   <div id="planEditorModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="editorTitle"><div class="game-box editor-box"><button id="closeEditorButton" class="close-button" type="button" aria-label="Zamknij edytor">×</button><p class="eyebrow">EDYCJA PLANU</p><h2 id="editorTitle" class="game-question">Dostosuj wybrany dzień</h2><p class="game-instruction">Zmiany są zapisywane wyłącznie na tym urządzeniu.</p><form id="planEditorForm"><div id="editorFields"></div><div class="editor-actions"><button id="restoreDayButton" class="secondary-action" type="button">Przywróć ten dzień</button><button class="next-button" type="submit">Zapisz plan</button></div></form></div></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./app.js?v=88b6994"></script>
+  <script src="./app.js?v=50abcaa-daily"></script>
 </body>
 </html>
