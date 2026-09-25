@@ -102,3 +102,9 @@ Po pushu status wdrożenia można sprawdzić w zakładce **Actions** repozytoriu
 ## Licencja
 
 Projekt jest prywatnym, edukacyjnym projektem użytkownika. Kod może być rozwijany zgodnie z ustawieniami repozytorium GitHub.
+
+## Ulepszony gameplay i oprawa
+
+Gry korzystają ze wspólnego systemu nagród. Sesje pokazują wynik, liczbę zdobytych punktów, nagrodę XP, najlepszą serię odpowiedzi i komunikat o kolejnym celu. Poprawne odpowiedzi budują serię, błędna odpowiedź ją resetuje, a rekord serii jest przechowywany lokalnie. Ekran wyniku ma osobną animację nagrody, a odblokowanie towarzysza jest komunikowane jako wydarzenie na Szlaku Odkrywców.
+
+Efekty dźwiękowe działają lokalnie przez Web Audio API. Dostępne są krótkie tony kliknięcia, błędu, poprawnej odpowiedzi, serii, nagrody i odblokowania. W zakładce „Twój kącik” można przełączać styl między **Delikatne** i **Energetyczne**, a główny przycisk w nagłówku wyłącza wszystkie dźwięki. Ustawienia zapisywane są w `localStorage`; nie ma automatycznego odtwarzania muzyki ani zewnętrznych plików audio.
