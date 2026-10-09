@@ -96,9 +96,12 @@ const clear = node => node.replaceChildren();
 const make = (tag, className, text) => { const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node; };
 const button = (text, className, handler) => { const node = make('button', className, text); node.type = 'button'; if (handler) node.addEventListener('click', handler); return node; };
 const append = (node, ...children) => { children.flat().filter(Boolean).forEach(child => node.append(child)); return node; };
-const get = (key, fallback) => { try { const value = localStorage.getItem(key); return value === null ? fallback : JSON.parse(value); } catch { return fallback; } };
+// Storage may be unavailable in private/hardened browsing contexts.
+const readRawStorage = key => { try { return localStorage.getItem(key); } catch { return null; } };
+const removeStorage = key => { try { localStorage.removeItem(key); return true; } catch { return false; } };
+const get = (key, fallback) => { try { const value = readRawStorage(key); return value === null ? fallback : JSON.parse(value); } catch { return fallback; } };
 const set = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast('Nie udało się zapisać danych na tym urządzeniu.'); return false; } };
-const bool = key => localStorage.getItem(key) === 'true';
+const bool = key => readRawStorage(key) === 'true';
 const shuffle = array => {
   const next = [...array];
   for (let i = next.length - 1; i > 0; i -= 1) {
@@ -131,12 +134,12 @@ function saveProgress() { set(S.progress, progress); }
 function savePreferences() { set(S.preferences, preferences); }
 function migrateLegacyState() {
   const oldIds = get('planLekcji.completedTasks.v3', []);
-  if (!localStorage.getItem(S.tasks) && Array.isArray(oldIds)) set(S.tasks, oldIds.filter(id => TASKS.some(item => item.id === id)));
-  if (!localStorage.getItem(S.profile) && localStorage.getItem('planLekcji.profile.v3')) set(S.profile, get('planLekcji.profile.v3','none'));
-  if (!localStorage.getItem(S.quiz) && bool('planLekcji.quizCompleted.v3')) { set(S.quiz,true); set(S.quizXp,Math.min(50,Number(get('planLekcji.quizPoints.v3',0)))); }
-  if (!localStorage.getItem(S.memory) && bool('planLekcji.memoryCompleted.v3')) { set(S.memory,true); set(S.memoryXp,Number(get('planLekcji.memoryPoints.v3',0))); }
-  if (!localStorage.getItem(S.truth) && bool('planLekcji.truthCompleted.v3')) { set(S.truth,true); set(S.truthXp,Math.min(25,Number(get('planLekcji.truthPoints.v3',0)))); }
-  if (!localStorage.getItem(S.legacyXp)) { const xp = Number(get('plan51_xp',0)) || 0; if (xp > 0) set(S.legacyXp,xp); }
+  if (!readRawStorage(S.tasks) && Array.isArray(oldIds)) set(S.tasks, oldIds.filter(id => TASKS.some(item => item.id === id)));
+  if (!readRawStorage(S.profile) && readRawStorage('planLekcji.profile.v3')) set(S.profile, get('planLekcji.profile.v3','none'));
+  if (!readRawStorage(S.quiz) && bool('planLekcji.quizCompleted.v3')) { set(S.quiz,true); set(S.quizXp,Math.min(50,Number(get('planLekcji.quizPoints.v3',0)))); }
+  if (!readRawStorage(S.memory) && bool('planLekcji.memoryCompleted.v3')) { set(S.memory,true); set(S.memoryXp,Number(get('planLekcji.memoryPoints.v3',0))); }
+  if (!readRawStorage(S.truth) && bool('planLekcji.truthCompleted.v3')) { set(S.truth,true); set(S.truthXp,Math.min(25,Number(get('planLekcji.truthPoints.v3',0)))); }
+  if (!readRawStorage(S.legacyXp)) { const xp = Number(get('plan51_xp',0)) || 0; if (xp > 0) set(S.legacyXp,xp); }
 }
 
 function dailyData() { const today = rewardToday(); if (!progress.daily || progress.daily.date !== today) { progress.daily = {date:today,lesson:0,task:0,game:0,xp:0,playXp:0,claimed:false}; saveProgress(); } if (typeof progress.daily.playXp !== 'number') progress.daily.playXp = 0; return progress.daily; }
@@ -291,8 +294,8 @@ function switchView(view) { activeView = view; document.querySelectorAll('.view'
 function openSeasonPicker() { const root = $('#seasonOptions'); clear(root); Object.entries(SEASONS).forEach(([key,season]) => { const selected = preferences.season === key; const option = button('',`season-option${selected ? ' selected' : ''}`,() => { preferences.season = key; savePreferences(); $('#seasonModal').classList.add('hidden'); setModalOpen(); renderAll(); toast(key === 'auto' ? 'Motyw będzie dopasowany automatycznie.' : `Wybrano: ${season.name}.`); }); append(option,make('span','option-emoji',season.emoji),(() => { const copy = make('span'); append(copy,make('b','',season.name),make('small','',season.description)); return copy; })()); root.append(option); }); $('#seasonModal').classList.remove('hidden'); setModalOpen(); }
 function openEditor() { const day = effectiveDays().find(item => item.key === selectedDay) || DAYS[0]; const fields = $('#editorFields'); clear(fields); day.lessons.forEach((lesson,index) => { const field = make('fieldset','editor-field'); field.append(make('legend','',`${lesson[0]}–${lesson[1]}`)); [['subject',lesson[2],'Przedmiot'],['teacher',lesson[3],'Nauczyciel'],['room',lesson[4],'Sala']].forEach(([key,value,label]) => { const input = document.createElement('input'); input.required = key === 'subject'; input.value = value; input.dataset.editorKey = key; input.dataset.index = String(index); input.setAttribute('aria-label',label); field.append(input); }); fields.append(field); }); $('#planEditorModal').classList.remove('hidden'); setModalOpen(); }
 function saveEditor() { const original = effectiveDays().find(item => item.key === selectedDay) || DAYS[0]; const day = JSON.parse(JSON.stringify(original)); document.querySelectorAll('[data-editor-key]').forEach(input => { const index = Number(input.dataset.index); const position = input.dataset.editorKey === 'subject' ? 2 : input.dataset.editorKey === 'teacher' ? 3 : 4; day.lessons[index][position] = input.value.trim() || day.lessons[index][position]; }); set(S.customPlan,effectiveDays().map(item => item.key === day.key ? day : item)); $('#planEditorModal').classList.add('hidden'); setModalOpen(); toast('Plan zapisany na tym urządzeniu.'); renderPlan(); }
-function restorePlan() { if (!confirm('Przywrócić przykładowy plan? Własne edycje planu zostaną usunięte, ale XP i gry pozostaną.')) return; localStorage.removeItem(S.customPlan); $('#planEditorModal').classList.add('hidden'); setModalOpen(); renderPlan(); toast('Przywrócono przykładowy plan.'); }
-function resetAll() { if (!confirm('Czy na pewno wyzerować cały postęp, gry, odznaki i ustawienia? Plan można zachować osobno.')) return; [S.tasks,S.lessons,S.profile,S.quiz,S.quizXp,S.memory,S.memoryXp,S.truth,S.truthXp,S.notebook,S.customPlan,S.progress,S.preferences,S.audioStyle,S.farm,S.homestead,S.legacyXp,S.legacyCoins,S.legacyWardrobe].forEach(key => localStorage.removeItem(key)); progress = {...DEFAULT_PROGRESS}; preferences = {season:'auto',animations:true}; farmState = loadFarm(); homesteadState = loadHomestead(); toast('Postęp został wyzerowany.'); renderAll(); }
+function restorePlan() { if (!confirm('Przywrócić przykładowy plan? Własne edycje planu zostaną usunięte, ale XP i gry pozostaną.')) return; removeStorage(S.customPlan); $('#planEditorModal').classList.add('hidden'); setModalOpen(); renderPlan(); toast('Przywrócono przykładowy plan.'); }
+function resetAll() { if (!confirm('Czy na pewno wyzerować cały postęp, gry, odznaki i ustawienia? Plan można zachować osobno.')) return; [S.tasks,S.lessons,S.profile,S.quiz,S.quizXp,S.memory,S.memoryXp,S.truth,S.truthXp,S.notebook,S.customPlan,S.progress,S.preferences,S.audioStyle,S.farm,S.homestead,S.legacyXp,S.legacyCoins,S.legacyWardrobe].forEach(key => removeStorage(key)); progress = {...DEFAULT_PROGRESS}; preferences = {season:'auto',animations:true}; farmState = loadFarm(); homesteadState = loadHomestead(); toast('Postęp został wyzerowany.'); renderAll(); }
 function prepareFeedback(event) { event.preventDefault(); const name = $('#feedbackName').value.trim(); const message = $('#feedbackMessage').value.trim(); if (!message) return; const body = [`Opinia z aplikacji Plan Lekcji${name ? `\nOd: ${name}` : ''}`, '', message, '', 'Wiadomość została przygotowana lokalnie w aplikacji Plan Lekcji.'].join('\n'); window.location.href = `mailto:ronoc2020@gmail.com?subject=${encodeURIComponent('Aplikacja Plan Lekcji')}&body=${encodeURIComponent(body)}`; toast('Otwieram program pocztowy z przygotowaną wiadomością.'); }
 
 function bindEvents() {
@@ -303,7 +306,7 @@ function bindEvents() {
   $('#religionToggle').addEventListener('click',() => { set(S.religion,!get(S.religion,false)); renderPlan(); renderMore(); });
   $('#themeSettingsButton').addEventListener('click',openSeasonPicker); $('#chooseSeasonButton').addEventListener('click',openSeasonPicker); $('#seasonChip').addEventListener('click',openSeasonPicker);
   $('#motionToggle').addEventListener('click',() => { preferences.animations = !preferences.animations; savePreferences(); renderSeason(); renderMore(); toast(preferences.animations ? 'Łagodne animacje są włączone.' : 'Animacje są zatrzymane.'); }); $('#audioModeToggle').addEventListener('click',() => { const next = get(S.audioStyle,'soft') === 'soft' ? 'bright' : 'soft'; set(S.audioStyle,next); playTone('success'); renderMore(); toast(next === 'bright' ? 'Energetyczne dźwięki włączone.' : 'Delikatne dźwięki włączone.'); });
-  $('#resetPlanButton').addEventListener('click',() => { if (confirm('Przywrócić przykładowy plan i wyczyścić zaznaczenia lekcji?')) { localStorage.removeItem(S.lessons); localStorage.removeItem(S.customPlan); renderPlan(); toast('Przywrócono przykładowy plan.'); } });
+  $('#resetPlanButton').addEventListener('click',() => { if (confirm('Przywrócić przykładowy plan i wyczyścić zaznaczenia lekcji?')) { removeStorage(S.lessons); removeStorage(S.customPlan); renderPlan(); toast('Przywrócono przykładowy plan.'); } });
   $('#resetAllButton').addEventListener('click',resetAll); $('#resetButton').addEventListener('click',resetAll); $('#soundToggle').addEventListener('click',() => { set(S.sound,!bool(S.sound)); renderHeader(); playTone('success'); toast(bool(S.sound) ? 'Dźwięki włączone.' : 'Dźwięki wyłączone.'); });
   $('#closeGameButton').addEventListener('click',closeGame); $('#gameModal').addEventListener('click',event => { if (event.target.id === 'gameModal') closeGame(); });
   $('#closeTaskButton').addEventListener('click',() => { $('#taskModal').classList.add('hidden'); setModalOpen(); }); $('#taskModal').addEventListener('click',event => { if (event.target.id === 'taskModal') { $('#taskModal').classList.add('hidden'); setModalOpen(); } }); $('#taskHintButton').addEventListener('click',() => { const stage = $('#taskStage'); stage.classList.toggle('show-hints'); $('#taskHintButton').textContent = stage.classList.contains('show-hints') ? 'Ukryj podpowiedzi' : 'Pokaż podpowiedzi'; }); $('#finishTaskButton').addEventListener('click',finishTask);
@@ -313,4 +316,4 @@ function bindEvents() {
   document.addEventListener('keydown',event => { if (event.key === 'Escape') { closeGame(); $('#taskModal').classList.add('hidden'); $('#seasonModal').classList.add('hidden'); $('#planEditorModal').classList.add('hidden'); setModalOpen(); } });
 }
 
-migrateLegacyState(); if (localStorage.getItem(S.sound) === null) set(S.sound,true); bindEvents(); renderAll();
+migrateLegacyState(); if (readRawStorage(S.sound) === null) set(S.sound,true); bindEvents(); renderAll();
